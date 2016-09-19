@@ -40,7 +40,7 @@ def MainMenu():
 
 @route(PLUGIN_PREFIX+'/alphabets')
 def AlphabetList():
-  oc = ObjectContainer(view_group = "List")
+  oc = ObjectContainer(title1="Alphabet", view_group = "List")
   oc.add( DirectoryObject(key=Callback(DirectoryList, pname='9'), title='#') )
   for pname in map(chr, range(ord('A'), ord('Z')+1)):
     oc.add( DirectoryObject(key=Callback(DirectoryList, page=1, pname=pname.lower()), title=pname) )
@@ -48,7 +48,7 @@ def AlphabetList():
 
 @route(PLUGIN_PREFIX+'/genres')
 def GenreList():
-  oc = ObjectContainer(view_group = "List")
+  oc = ObjectContainer(title1="Genre", view_group = "List")
   for title in GENRES:
     pname = title.lower().replace(' ','-')
     oc.add( DirectoryObject(key=Callback(DirectoryList, page=1, pname=pname), title=title) )
@@ -56,7 +56,7 @@ def GenreList():
 
 @route(PLUGIN_PREFIX+'/directory/{pname}')
 def DirectoryList(page, pname):
-  oc = ObjectContainer(view_group = "List")
+  oc = ObjectContainer(title1=pname, view_group = "List")
   url = ROOT_URL+"/directory/%s/%s.htm" %(pname, page)
   try:
     html = HTML.ElementFromURL(url)
@@ -96,7 +96,7 @@ def Search(query='one piece'):
 
 @route(PLUGIN_PREFIX+'/manga/{manga}')
 def MangaPage(manga):
-  oc = ObjectContainer(view_group = "List")
+  oc = ObjectContainer(title1=manga, view_group = "List")
   url = ROOT_URL+'/manga/'+manga
   try:
     html = HTML.ElementFromURL(url, timeout=10.0)
